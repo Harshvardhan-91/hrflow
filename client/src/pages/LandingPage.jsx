@@ -1,10 +1,10 @@
-import Benefits from "../components/landinPage/Benefits";
-import CTAsection from "../components/landinPage/CTAsection";
-import Features from "../components/landinPage/Features";
-import HeroSection from "../components/landinPage/HeroSection";
-import HowItWorks from "../components/landinPage/HowItWorks";
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import Benefits from "../components/landingPage/Benefits";
+import CTAsection from "../components/landingPage/CTAsection";
+import Features from "../components/landingPage/Features";
+import HeroSection from "../components/landingPage/HeroSection";
+import HowItWorks from "../components/landingPage/HowItWorks";
+import Footer from "../components/common/Footer";
+import Navbar from "../components/common/Navbar";
 
 export const LandingPage = () => {
   return (
