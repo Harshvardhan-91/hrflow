@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { Link } from "react-scroll";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolling, setScrolling] = useState(false);
-    const [activeSection, setActiveSection] = useState("");
 
     useEffect(() => {
         const handleScroll = () => {
@@ -16,44 +16,12 @@ const Navbar = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setActiveSection(entry.target.id);
-                    }
-                });
-            },
-            { rootMargin: "-80px 0px 0px 0px", threshold: 0.5 }
-        );
-
-        const sections = document.querySelectorAll("section[id]");
-        sections.forEach((section) => observer.observe(section));
-
-        return () => sections.forEach((section) => observer.unobserve(section));
-    }, []);
-
     const navItems = [
         { title: "Features", href: "features" },
         { title: "How it Works", href: "how-it-works" },
         { title: "Benefits", href: "benefits" },
         { title: "Contact", href: "contact" },
     ];
-
-    const scrollToSection = (href) => {
-        const element = document.getElementById(href);
-        const offset = 80;
-        const bodyRect = document.body.getBoundingClientRect().top;
-        const elementRect = element.getBoundingClientRect().top;
-        const elementPosition = elementRect - bodyRect;
-        const offsetPosition = elementPosition - offset;
-
-        window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth"
-        });
-    };
 
     return (
         <nav
@@ -74,15 +42,17 @@ const Navbar = () => {
                     {/* Desktop Menu */}
                     <div className="hidden md:flex space-x-8">
                         {navItems.map((item) => (
-                            <button
+                            <Link
                                 key={item.title}
-                                onClick={() => scrollToSection(item.href)}
-                                className={`text-gray-300 hover:text-indigo-400 transition-colors cursor-pointer ${
-                                    activeSection === item.href ? "text-indigo-400" : ""
-                                }`}
+                                to={item.href}
+                                spy={true}
+                                smooth={true}
+                                offset={-80} // Adjusts for navbar height
+                                duration={500}
+                                className="text-gray-300 hover:text-indigo-400 transition-colors cursor-pointer"
                             >
                                 {item.title}
-                            </button>
+                            </Link>
                         ))}
                         <motion.button
                             whileHover={{ scale: 1.05 }}
@@ -109,18 +79,18 @@ const Navbar = () => {
                         className="md:hidden py-4"
                     >
                         {navItems.map((item) => (
-                            <button
+                            <Link
                                 key={item.title}
-                                onClick={() => {
-                                    scrollToSection(item.href);
-                                    setIsOpen(false);
-                                }}
-                                className={`block w-full text-left py-2 text-gray-300 hover:text-indigo-400 cursor-pointer ${
-                                    activeSection === item.href ? "text-indigo-400" : ""
-                                }`}
+                                to={item.href}
+                                spy={true}
+                                smooth={true}
+                                offset={-80}
+                                duration={500}
+                                onClick={() => setIsOpen(false)}
+                                className="block py-2 text-gray-300 hover:text-indigo-400 cursor-pointer"
                             >
                                 {item.title}
-                            </button>
+                            </Link>
                         ))}
                         <button className="w-full mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
                             Get Started
