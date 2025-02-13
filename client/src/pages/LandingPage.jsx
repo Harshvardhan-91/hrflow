@@ -8,7 +8,7 @@ import Navbar from "../components/common/Navbar";
 
 export const LandingPage = () => {
   return (
-    <div className="relative min-h-screen">
+    <>
       <Navbar />
       <HeroSection />
       <Features />
@@ -16,7 +16,7 @@ export const LandingPage = () => {
       <Benefits />
       <CTAsection />
       <Footer />
-    </div>
+    </>
   );
 };
 
