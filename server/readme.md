@@ -85,3 +85,62 @@ POST
   "message": "Invalid email or password"
 }
 ```
+
+# /users/profile
+
+## Method
+GET
+
+## Authentication
+Requires Bearer token in Authorization header
+
+## Response
+• On success (200): Returns user profile details  
+• On unauthorized (401): Returns authentication error
+
+## Example Response
+**Success (200)**
+```json
+{
+  "user": {
+    "id": 123,
+    "fullname": {
+      "firstname": "Jane",
+      "lastname": "Doe"
+    },
+    "email": "jane@example.com"
+  }
+}
+```
+**Error (401)**
+```json
+{
+  "message": "Unauthorized access"
+}
+```
+
+# /users/logout
+
+## Method
+POST
+
+## Authentication
+Requires Bearer token in Authorization header
+
+## Response
+• On success (200): Returns logout confirmation  
+• On unauthorized (401): Returns authentication error
+
+## Example Response
+**Success (200)**
+```json
+{
+  "message": "Successfully logged out"
+}
+```
+**Error (401)**
+```json
+{
+  "message": "Unauthorized access"
+}
+```
