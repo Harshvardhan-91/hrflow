@@ -46,3 +46,42 @@ POST
   "Password length must be at least 6"
 ]
 ```
+
+# /users/login
+
+## Method
+POST
+
+## Request Body
+```json
+{
+  "email": "string (valid email format)",
+  "password": "string (min length: 6)"
+}
+```
+
+## Response
+• On success (200): Returns a JSON containing a token and user details  
+• On authentication error (401): Returns an error message
+
+## Example Response
+**Success (200)**
+```json
+{
+  "token": "string",
+  "user": {
+    "id": 123,
+    "fullname": {
+      "firstname": "Jane",
+      "lastname": "Doe"
+    },
+    "email": "jane@example.com"
+  }
+}
+```
+**Error (401)**
+```json
+{
+  "message": "Invalid email or password"
+}
+```
