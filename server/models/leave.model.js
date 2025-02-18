@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const leaveSchema = new mongoose.Schema({
+const LeaveModel = new mongoose.Schema({
     employee: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user',
@@ -43,4 +43,4 @@ const leaveSchema = new mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model('Leave', leaveSchema);
+module.exports = mongoose.model('Leave', LeaveModel);
