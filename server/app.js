@@ -10,6 +10,8 @@ app.use(cookieParser());
 app.use(express.urlencoded({extended: true}));
 const connectToDb = require('./db/db');
 const userRoutes = require('./routes/user.routes');
+const leaveRoutes = require('./routes/leave.Routes');
+
 connectToDb();
 
 app.get('/', (req,res) => {
@@ -17,6 +19,7 @@ app.get('/', (req,res) => {
 })
 
 app.use('/users',userRoutes);
+app.use('/leaves',leaveRoutes);
 
 
 
