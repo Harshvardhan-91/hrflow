@@ -1,7 +1,7 @@
-const LeaveModel = require('../models/leave.Model');
+const LeaveModel = require('../models/leave.model');
 const { validationResult } = require('express-validator');
-const { sendMail } = require('../services/email.service');
-const { sendNotification } = require('../services/notification.service');
+// const { sendMail } = require('../services/email.service');
+// const { sendNotification } = require('../services/notification.service');
 
 /**
  * Controller to handle leave application submission
@@ -30,17 +30,17 @@ module.exports.applyLeave = async(req,res,next)=>{
     });
 
     // Send confirmation email to employee
-    await sendMail({
-        to: `${user.email}`,
-        subject: 'Leave Application',
-        text: `Your leave application has been submitted successfully.`
-    });
+    // await sendMail({
+    //     to: `${user.email}`,
+    //     subject: 'Leave Application',
+    //     text: `Your leave application has been submitted successfully.`
+    // });
 
     // Send in-app notification to employee
-    await sendNotification({
-        to: user._id,
-        message: 'Your leave application has been submitted successfully.'
-    });
+    // await sendNotification({
+    //     to: user._id,
+    //     message: 'Your leave application has been submitted successfully.'
+    // });
 }
 
 /**
