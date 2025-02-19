@@ -11,3 +11,4 @@ router.post('/apply', [
 ], authMiddleware.authUser, leaveController.applyLeave);
 router.get('/applications', authMiddleware.authUser, leaveController.getLeaves);
 module.exports = router;
+

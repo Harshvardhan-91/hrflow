@@ -63,8 +63,19 @@ module.exports.applyLeave = async (req, res, next) => {
  * @param {Function} next - Express next middleware function
  */
 module.exports.getLeaves = async(req,res,next)=>{
-    const {user} = req;
-    // Fetch all leaves for the current user
-    const leaves = await LeaveModel.find({employee: user._id});
-    res.status(200).json(leaves);
+    try {
+        const { user } = req;
+
+        if (!user) {
+            return res.status(401).json({ error: "Unauthorized access" });
+        }
+
+        // Fetch all leaves for the current user
+        const leaves = await LeaveModel.find({ employee: user._id });
+
+        return res.status(200).json(leaves);
+    } catch (error) {
+        console.error("Error fetching leaves:", error);
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
 }
