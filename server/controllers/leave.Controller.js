@@ -9,25 +9,39 @@ const { validationResult } = require('express-validator');
  * @param {Object} res - Express response object
  * @param {Function} next - Express next middleware function
  */
-module.exports.applyLeave = async(req,res,next)=>{
-    // Validate request data
-    const errors = validationResult(req);
-    if(!errors.isEmpty()){
-        return res.status(400).json({errors: errors.array()});
+module.exports.applyLeave = async (req, res, next) => {
+    try {
+        // Validate request data
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        // Extract data from request body and user
+        const { leaveType, startDate, endDate, reason } = req.body;
+        const { user } = req;
+
+        if (!user) {
+            return res.status(401).json({ error: "Unauthorized access" });
+        }
+
+        // Create new leave record in database
+        const leave = await LeaveModel.create({
+            employee: user._id,
+            leaveType,
+            startDate,
+            endDate,
+            reason
+        });
+
+        return res.status(201).json({ message: "Leave applied successfully", leave });
+
+    } catch (error) {
+        console.error("Error applying leave:", error);
+        return res.status(500).json({ error: "Internal Server Error" });
     }
+};
 
-    // Extract data from request body and user
-    const {leaveType, startDate, endDate, reason} = req.body;
-    const {user} = req;
-
-    // Create new leave record in database
-    const leave = await LeaveModel.create({
-        employee: user._id,
-        leaveType,
-        startDate,
-        endDate,
-        reason
-    });
 
     // Send confirmation email to employee
     // await sendMail({
@@ -41,7 +55,6 @@ module.exports.applyLeave = async(req,res,next)=>{
     //     to: user._id,
     //     message: 'Your leave application has been submitted successfully.'
     // });
-}
 
 /**
  * Controller to fetch all leaves for a specific employee
