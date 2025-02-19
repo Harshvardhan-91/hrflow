@@ -26,3 +26,14 @@ exports.markAttendance = async (req, res) => {
         res.status(500).json({ message: 'Server error', error });
     }
 };
+
+exports.getAttendance = async (req, res) => {
+    const { userId } = req.body;
+
+    try {
+        const attendance = await Attendance.find({ userId });
+        res.status(200).json({ attendance });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error });
+    }
+};

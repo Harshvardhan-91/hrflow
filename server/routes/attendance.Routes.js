@@ -10,4 +10,6 @@ router.post('/mark-attendance', [
     body('status').isIn(['Present', 'Absent']).withMessage('Invalid status')
 ], auth,attendance.markAttendance);
 
+router.get('/get-attendance', auth.authUser, attendance.getAttendance);
+
 module.exports = router;
