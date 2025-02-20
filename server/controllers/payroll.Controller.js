@@ -1,23 +1,16 @@
-const Payroll = require('../models/payroll.model'); // Assuming you have a Payroll model
-const Employee = require('../models/user.model'); // Assuming you have an Employee model
+const payroll = require('../models/payroll.model');
+const {validationResult} = require('express-validator');
 
-// Function to get payroll details by employee ID
-exports.getPayrollsByEmployeeId = async (req, res) => {
-    try {
+module.exports.getPayroll = async (req, res, next) => {
+    try{
         const {user}= req;
-        const {employeeId} = user._id;
-
-        // Check if employee exists
-        const employee = await Employee.findById(employeeId);
-        if (!employee) {
-            return res.status(404).json({ message: 'Employee not found' });
+        if(!user){
+            return res.status(401).json({error: "Unauthorized access"});
         }
-
-        // Get payrolls for the employee
-        const payrolls = await Payroll.find({ employeeId: employeeId });
-
-        res.status(200).json(payrolls);
-    } catch (error) {
-        res.status(500).json({ message: 'Server error', error: error.message });
+        const payroll = await payroll.find({employee: user._id});
+        return res.status(200).json({payroll});
+    }catch(err){
+        console.error("Error fetching payroll:", err);
+        return res.status(500).json({error: "Internal Server Error"});
     }
-};
+}
