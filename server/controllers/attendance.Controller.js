@@ -23,7 +23,8 @@ exports.markAttendance = async (req, res) => {
 
         res.status(201).json({ message: 'Attendance marked successfully', attendance });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        console.error('Error marking attendance:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
 
@@ -34,6 +35,7 @@ exports.getAttendance = async (req, res) => {
         const attendance = await Attendance.find({ userId });
         res.status(200).json({ attendance });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        console.error('Error fetching attendance:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
     }
 };

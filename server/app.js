@@ -11,7 +11,7 @@ app.use(express.urlencoded({extended: true}));
 const connectToDb = require('./db/db');
 const userRoutes = require('./routes/user.routes');
 const leaveRoutes = require('./routes/leave.Routes');
-const attendanceRoutes = require('./routes/attendance.routes');
+const attendanceRoutes = require('./routes/attendance.Routes');
 
 connectToDb();
 
