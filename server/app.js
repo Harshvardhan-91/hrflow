@@ -12,6 +12,7 @@ const connectToDb = require('./db/db');
 const userRoutes = require('./routes/user.routes');
 const leaveRoutes = require('./routes/leave.Routes');
 const attendanceRoutes = require('./routes/attendance.Routes');
+const payrollRoutes = require('./routes/payroll.Routes');
 
 connectToDb();
 
@@ -22,6 +23,7 @@ app.get('/', (req,res) => {
 app.use('/users',userRoutes);
 app.use('/leaves',leaveRoutes);
 app.use('/attendance',attendanceRoutes);
+app.use('/payroll',payrollRoutes);
 
 
 
