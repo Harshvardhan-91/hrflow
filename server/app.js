@@ -13,7 +13,7 @@ const userRoutes = require('./routes/user.routes');
 const leaveRoutes = require('./routes/leave.Routes');
 const attendanceRoutes = require('./routes/attendance.Routes');
 const payrollController = require('./controllers/payroll.Controller');
-// const shiftRoutes = require('./routes/shift.Routes');
+const shitController = require('./controllers/shift.Controller');
 
 connectToDb();
 
@@ -25,6 +25,7 @@ app.use('/users',userRoutes);
 app.use('/leaves',leaveRoutes);
 app.use('/attendance',attendanceRoutes);
 app.get('/payroll',payrollController.getPayroll);
+app.get('/shits',shitController.getShifts);
 
 
 module.exports = app;
